@@ -9,13 +9,6 @@ let db = [
   { id: 2, name: "tina" }, // 1
 ];
 
-// app.use((req, res, next) => {
-//   console.log(new Date().toString());
-//   next();
-// });
-
-// req.body = JSON.parse('{ "name": "hannah" }')
-
 app.use(express.json());
 
 // http get
@@ -45,13 +38,21 @@ app.post("/customers", (req, res) => {
 });
 
 // http get
-// http://localhost:3000/customers/1
+// http://localhost:3000/customers/9999
 app.delete("/customers/:urlId([0-9]+)", (req, res) => {
   const id = Number(req.params.urlId); //
   db = db.filter((customer) => customer.id != id);
   res.status(204).end();
 });
 
-app.listen(port, () => {
+let server = app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
+});
+
+process.on("SIGINT", () => {
+  console.log("Gracefully shutting down Express.js server...");
+  server.close(() => {
+    console.log("Server closed.");
+    process.exit(0);
+  });
 });
