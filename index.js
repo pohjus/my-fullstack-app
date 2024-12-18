@@ -49,7 +49,7 @@ app.delete("/customers/:urlId([0-9]+)", (req, res) => {
 });
 
 let server = app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`My app listening on port ${port}`);
 });
 
 process.on("SIGINT", () => {
